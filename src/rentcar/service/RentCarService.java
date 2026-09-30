@@ -88,8 +88,6 @@ public class RentCarService {
         }
     }
 
-    // ==================== АВТОМОБИЛИ ====================
-
     public List<Car> getAllCars() {
         List<Car> list = new ArrayList<>();
         String sql = "SELECT * FROM cars ORDER BY id";
