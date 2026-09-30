@@ -8,6 +8,7 @@ import rentcar.model.Client;
 import rentcar.model.Rental;
 import rentcar.model.RentalStatus;
 import rentcar.service.RentCarService;
+import rentcar.util.ExcelExporter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,7 +40,8 @@ public class Main {
                     case 5 -> filterMenu();
                     case 6 -> sortMenu();
                     case 7 -> service.printStatistics();
-                    case 8 -> showAllTables();
+                    case 8 -> exportMenu();
+                    case 9 -> showAllTables();
                     case 0 -> running = false;
                     default -> System.out.println("Нет такого пункта.");
                 }
@@ -61,7 +63,8 @@ public class Main {
         System.out.println("5. Фильтрация");
         System.out.println("6. Сортировка");
         System.out.println("7. Статистика");
-        System.out.println("8. Показать таблицы БД");
+        System.out.println("8. Экспорт данных");
+        System.out.println("9. Показать таблицы БД");
         System.out.println("0. Выход");
         System.out.println("==========================================");
     }
@@ -285,6 +288,22 @@ public class Main {
         }
     }
 
+    private static void exportMenu() {
+        System.out.println("\n--- ЭКСПОРТ ДАННЫХ ---");
+        System.out.println("1. Клиенты в clients.xlsx");
+        System.out.println("2. Автомобили в cars.xlsx");
+        System.out.println("3. Аренды в rentals.xlsx");
+        System.out.println("0. Назад");
+        int c = readInt("> ");
+        switch (c) {
+            case 1 -> ExcelExporter.exportClients(service.getAllClients(), "clients.xlsx");
+            case 2 -> ExcelExporter.exportCars(service.getAllCars(), "cars.xlsx");
+            case 3 -> ExcelExporter.exportRentals(service.getAllRentals(), "rentals.xlsx");
+            case 0 -> { }
+            default -> System.out.println("Нет такого пункта.");
+        }
+    }
+    
     private static RentalStatus readRentalStatus() {
         while (true) {
             System.out.print("Статус (CREATED/ACTIVE/COMPLETED/CANCELLED): ");
@@ -296,4 +315,5 @@ public class Main {
             }
         }
     }
+    
 }
