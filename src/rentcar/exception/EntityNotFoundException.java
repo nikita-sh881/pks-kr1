@@ -1,4 +1,4 @@
-package ru.mirea.rentcar.exception;
+package rentcar.exception;
 
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(String message) {
